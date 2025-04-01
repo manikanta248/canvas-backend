@@ -8,8 +8,13 @@ const { Server } = require('socket.io');
 const app = express();
 const PORT = 5000;
 
-app.use(bodyParser.json());
-app.use(cors());
+app.use(bodyParser.json({ limit: '10mb' })); // Increase the limit to 10MB
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+app.use(cors({
+    origin: '*', // Allow all origins
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+}));
 
 mongoose.connect('mongodb+srv://sangamkarmanikanta:manigsn123@cluster0.viekwio.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
     useNewUrlParser: true,
